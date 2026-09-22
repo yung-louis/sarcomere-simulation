@@ -23,21 +23,33 @@ public class ShaderProgram {
         int vShader = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vShader, vertexShader);
         glCompileShader(vShader);
+        checkShader(vShader, "vertex");
         glAttachShader(program, vShader);
 
         // add fragment shader
         int fShader = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fShader, fragShader);
         glCompileShader(fShader);
+        checkShader(fShader, "fragment");
         glAttachShader(program, fShader);
         
         // link fragment and vertex shader to program
         glLinkProgram(program);
+        if (glGetProgrami(program, GL_LINK_STATUS) == GL_FALSE) {
+            System.err.println("Shader program failed to link: " + glGetProgramInfoLog(program));
+        }
         glDetachShader(program, vShader);
         glDetachShader(program, fShader);
         glValidateProgram(program);
     }
     
+    private static void checkShader(int shader, String type) {
+        // report compile errors instead of failing silently
+        if (glGetShaderi(shader, GL_COMPILE_STATUS) == GL_FALSE) {
+            System.err.println(type + " shader failed to compile: " + glGetShaderInfoLog(shader));
+        }
+    }
+
     public void createUniform(String uniform){
     	//create uniform and add to hashmap
         uniforms.put(uniform, glGetUniformLocation(program, uniform));

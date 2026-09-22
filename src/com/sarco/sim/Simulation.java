@@ -79,7 +79,7 @@ public class Simulation implements Runnable {
 		// Creating uniforms for the shaders
 		sceneShader.createUniform("sceneMatrix");
 		sceneShader.createUniform("objectCameraMatrix");
-		sceneShader.createUniform("texture");
+		sceneShader.createUniform("textureSampler");
 		sceneShader.createUniform("colour");
 		sceneShader.createUniform("textured");
 		sceneShader.createUniform("jointsMatrix");
@@ -295,7 +295,7 @@ public class Simulation implements Runnable {
 		Matrix4f sceneMatrix = Transform.getSceneMatrix(window);
 		sceneShader.setUniform("sceneMatrix", sceneMatrix);
 
-		sceneShader.setUniform("texture", 0);
+		sceneShader.setUniform("textureSampler", 0);
 
 		// set camera matrix
 		Matrix4f cameraMatrix = Transform.getCameraMatrix(camera);

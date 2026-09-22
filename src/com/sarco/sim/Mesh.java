@@ -78,7 +78,12 @@ public class Mesh {
 			//Add attributes for 0-4
 			if (i != 5) {
 				glEnableVertexAttribArray(i);
-				glVertexAttribPointer(i, size, GL_FLOAT, false, 0, 0);
+				if (i == 4) {
+					// joint indices are integers and are declared as ivec4 in the shader
+					glVertexAttribIPointer(i, size, GL_INT, 0, 0);
+				} else {
+					glVertexAttribPointer(i, size, GL_FLOAT, false, 0, 0);
+				}
 			} else {
 				// bind the indices
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);

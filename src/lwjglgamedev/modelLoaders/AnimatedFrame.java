@@ -7,19 +7,19 @@ public class AnimatedFrame {
 	
 	// this class is from https://github.com/lwjglgamedev/lwjglbook
 
-    public static final int MAX_JOINTS = 150;
-        
     private static final Matrix4f IDENTITY_MATRIX = new Matrix4f();
             
     private final Matrix4f[] localJointMatrices;
 
     private final Matrix4f[] jointMatrices;
 
-    public AnimatedFrame() {
-        localJointMatrices = new Matrix4f[MAX_JOINTS];
+    // Size the arrays to the number of joints the model actually uses, so the
+    // count uploaded matches the jointsMatrix[4] uniform in the vertex shader
+    public AnimatedFrame(int numJoints) {
+        localJointMatrices = new Matrix4f[numJoints];
         Arrays.fill(localJointMatrices, IDENTITY_MATRIX);
 
-        jointMatrices = new Matrix4f[MAX_JOINTS];
+        jointMatrices = new Matrix4f[numJoints];
         Arrays.fill(jointMatrices, IDENTITY_MATRIX);
     }
     

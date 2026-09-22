@@ -143,12 +143,11 @@ public class MD5Loader {
 
 	private static AnimatedFrame processAnimationFrame(MD5Model md5Model, MD5AnimModel animModel, MD5Frame frame,
 			List<Matrix4f> invJointMatrices) {
-		AnimatedFrame result = new AnimatedFrame();
+		List<MD5JointInfo.MD5JointData> joints = md5Model.getJointInfo().getJoints();
+		AnimatedFrame result = new AnimatedFrame(joints.size());
 
 		MD5BaseFrame baseFrame = animModel.getBaseFrame();
 		List<MD5Hierarchy.MD5HierarchyData> hierarchyList = animModel.getHierarchy().getHierarchyDataList();
-
-		List<MD5JointInfo.MD5JointData> joints = md5Model.getJointInfo().getJoints();
 		int numJoints = joints.size();
 		float[] frameData = frame.getFrameData();
 		for (int i = 0; i < numJoints; i++) {
